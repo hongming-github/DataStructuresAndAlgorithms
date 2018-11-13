@@ -6,6 +6,11 @@ package com.zhm.BST;
 public class BinarySortTree {
     public Node node;
 
+    /**
+     * Insert new node
+     *
+     * @param value
+     */
     public void insert(int value) {
         Node newNode = new Node(value);
         if (node == null) {
@@ -73,6 +78,12 @@ public class BinarySortTree {
         }
     }
 
+    /**
+     * Search the value in BST
+     *
+     * @param value
+     * @return
+     */
     public Node search(int value) {
         System.out.print("Search:" + value);
         return search(node, value);
@@ -94,6 +105,11 @@ public class BinarySortTree {
         return null;
     }
 
+    /**
+     * Get the maximum value in BTS
+     *
+     * @return
+     */
     public int findMaximumValue() {
         Node result = findMaximumValue(node);
 
@@ -116,6 +132,11 @@ public class BinarySortTree {
 
     }
 
+    /**
+     * Get the minimum value in BTS
+     *
+     * @return
+     */
     public int findMinimumValue() {
         Node result = findMinimumValue(node);
 

@@ -1,11 +1,27 @@
 package com.test;
 
+import com.zhm.Array.Array;
 import com.zhm.BST.BinarySortTree;
 import com.zhm.BST.Node;
 
 public class Main {
 
     public static void main(String[] args) {
+        Array arr = new Array(20);
+        for (int i = 0; i < 10; i++) {
+            arr.addLastValue(i);
+        }
+        System.out.println(arr);
+
+        arr.add(1, 100);
+        System.out.println(arr);
+
+
+        arr.addFirstValue(-1);
+        System.out.println(arr);
+    }
+
+    public static void testBST() {
         BinarySortTree binaryTree = new BinarySortTree();
         insertIntoBST(binaryTree);
 
@@ -24,7 +40,6 @@ public class Main {
         System.out.println("Maximum Value:" + binaryTree.findMaximumValue());
 
         System.out.println("Minimum Value:" + binaryTree.findMinimumValue());
-
     }
 
     private static void insertIntoBST(BinarySortTree binaryTree) {
