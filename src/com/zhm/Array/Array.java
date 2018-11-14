@@ -84,7 +84,7 @@ public class Array {
             throw new IllegalArgumentException("Add failed.Index >=0 and index<=size.");
         }
 
-        // Move all the elements which is after index to the next index
+        // Move all the elements which is after index to the next position
         for (int i = size - 1; i >= index; i--) {
             data[i + 1] = data[i];
         }
@@ -118,6 +118,86 @@ public class Array {
         data[index] = value;
     }
 
+    	/**
+	 * Check if the array contains a value
+	 *
+	 * @param value
+	 * @return
+	 */
+	public boolean contains(int value) {
+		for (int i = 0; i < size; i++) {
+			if (data[i] == value) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Find index for a value
+	 *
+	 * @param value
+	 * @return
+	 */
+	public int find(int value) {
+		for (int i = 0; i < size; i++) {
+			if (data[i] == value) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	/**
+	 * Remove a value based on index and return removed value
+	 *
+	 * @param index
+	 * @return
+	 */
+	public int remove(int index) {
+		if (index < 0 || index > size) {
+			throw new IllegalArgumentException("Remove failed.Index >=0 and index<=size.");
+		}
+
+		int result = data[index];
+
+		for (int i = index + 1; i < size; i++) {
+			data[i - 1] = data[i];
+		}
+		size--;
+		return result;
+	}
+
+	/**
+	 * Remove the first value in array
+	 *
+	 * @return
+	 */
+	public int removeFirst() {
+		return remove(0);
+	}
+
+	/**
+	 * Remove the last value in array
+	 *
+	 * @return
+	 */
+	public int removeLast() {
+		return remove(size - 1);
+	}
+
+	/**
+	 * Remove an element
+	 *
+	 * @param value
+	 */
+	public void removeElement(int value) {
+		int index = find(value);
+		if (index != -1) {
+			remove(index);
+		}
+	}
+    
     /**
      * Override toString method
      *
