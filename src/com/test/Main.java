@@ -3,10 +3,22 @@ package com.test;
 import com.zhm.Array.Array;
 import com.zhm.BST.BinarySortTree;
 import com.zhm.BST.Node;
+import com.zhm.Stack.ArrayStack;
 
 public class Main {
 
     public static void main(String[] args) {
+        ArrayStack<Integer> stack = new ArrayStack<>();
+        for (int i = 0; i < 5; i++) {
+            stack.push(i);
+            System.out.println(stack);
+        }
+
+        stack.pop();
+        System.out.println(stack);
+    }
+
+    public static void testArray() {
         Array<Integer> arr = new Array<>();
         for (int i = 0; i < 10; i++) {
             arr.addLastValue(i);
@@ -48,6 +60,8 @@ public class Main {
         System.out.println("Maximum Value:" + binaryTree.findMaximumValue());
 
         System.out.println("Minimum Value:" + binaryTree.findMinimumValue());
+
+
     }
 
     private static void insertIntoBST(BinarySortTree binaryTree) {
