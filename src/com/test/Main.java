@@ -3,11 +3,57 @@ package com.test;
 import com.zhm.Array.Array;
 import com.zhm.BST.BinarySortTree;
 import com.zhm.BST.Node;
+import com.zhm.Queue.ArrayQueue;
+import com.zhm.Queue.LoopQueue;
+import com.zhm.Queue.Queue;
 import com.zhm.Stack.ArrayStack;
+
+import java.util.Random;
 
 public class Main {
 
     public static void main(String[] args) {
+        LoopQueue<Integer> queue = new LoopQueue<>();
+
+        for (int i = 0; i < 10; i++) {
+            queue.enqueue(i);
+            System.out.println(queue);
+
+            if (i % 3 == 2) {
+                queue.dequeue();
+                System.out.println(queue);
+            }
+        }
+
+
+    }
+
+    public static void testQueuePerformance(){
+        int opCount = 100000;
+        ArrayQueue<Integer> arr = new ArrayQueue<>();
+        double t1 = testQueue(arr, opCount);
+        System.out.println("ArrayQueue t1:" + t1);
+
+        LoopQueue<Integer> queue = new LoopQueue<>();
+        double t2 = testQueue(queue, opCount);
+        System.out.println("LoopQueue t2:" + t2);
+    }
+
+    private static double testQueue(Queue<Integer> q, int opCount) {
+        long startTime = System.nanoTime();
+        Random random = new Random();
+        for (int i = 0; i < opCount; i++) {
+            q.enqueue(random.nextInt(Integer.MAX_VALUE));
+        }
+        for (int i = 0; i < opCount; i++) {
+            q.dequeue();
+        }
+        long endTime = System.nanoTime();
+
+        return (endTime - startTime) / 1000000000.0;
+    }
+
+    public static void testStack() {
         ArrayStack<Integer> stack = new ArrayStack<>();
         for (int i = 0; i < 5; i++) {
             stack.push(i);
