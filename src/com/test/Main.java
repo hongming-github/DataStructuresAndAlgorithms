@@ -3,6 +3,7 @@ package com.test;
 import com.zhm.Array.Array;
 import com.zhm.BST.BinarySortTree;
 import com.zhm.BST.Node;
+import com.zhm.LinkedList.LinkedList;
 import com.zhm.Queue.ArrayQueue;
 import com.zhm.Queue.LoopQueue;
 import com.zhm.Queue.Queue;
@@ -13,6 +14,26 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args) {
+        LinkedList<Integer> linkedList = new LinkedList<>();
+        for (int i = 0; i < 5; i++) {
+            linkedList.addFirst(i);
+            System.out.println(linkedList);
+        }
+
+        linkedList.add(2, 666);
+        System.out.println(linkedList);
+
+        linkedList.remove(2);
+        System.out.println(linkedList);
+
+        linkedList.removeFirst();
+        System.out.println(linkedList);
+
+        linkedList.removeLast();
+        System.out.println(linkedList);
+    }
+
+    public static void testLoopQueue() {
         LoopQueue<Integer> queue = new LoopQueue<>();
 
         for (int i = 0; i < 10; i++) {
@@ -24,11 +45,9 @@ public class Main {
                 System.out.println(queue);
             }
         }
-
-
     }
 
-    public static void testQueuePerformance(){
+    public static void testQueuePerformance() {
         int opCount = 100000;
         ArrayQueue<Integer> arr = new ArrayQueue<>();
         double t1 = testQueue(arr, opCount);

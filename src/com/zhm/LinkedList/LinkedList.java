@@ -82,5 +82,97 @@ public class LinkedList<E> {
         add(size, e);
     }
 
+    public E get(int index) {
+        if (index < 0 || index > size) {
+            throw new IllegalArgumentException("Get failed. Illegal index.");
+        }
+
+        Node currentNode = dummyHead.next;
+
+        for (int i = 0; i < index; i++) {
+            currentNode = currentNode.next;
+        }
+        return currentNode.e;
+    }
+
+    public E getFirst() {
+        return get(0);
+    }
+
+    public E getLast() {
+        return get(size - 1);
+    }
+
+    public void set(int index, E e) {
+        if (index < 0 || index > size) {
+            throw new IllegalArgumentException("Set failed. Illegal index.");
+        }
+
+        Node currentNode = dummyHead.next;
+
+        for (int i = 0; i < index; i++) {
+            currentNode = currentNode.next;
+        }
+
+        currentNode.e = e;
+
+    }
+
+    public boolean contains(E e) {
+        Node currentNode = dummyHead.next;
+
+        while (currentNode != null) {
+            if (currentNode.e == e) {
+                return true;
+            }
+            currentNode = currentNode.next;
+
+        }
+        return false;
+    }
+
+    public E remove(int index) {
+        if (index < 0 || index > size) {
+            throw new IllegalArgumentException("Remove failed. Illegal index.");
+        }
+
+        Node preNode = dummyHead;
+
+        //Because we have a dummy head, so we need to for loop 'index' time to find pre node.
+        for (int i = 0; i < index; i++) {
+            preNode = preNode.next;
+        }
+
+        Node delNode = preNode.next;
+        preNode.next = delNode.next;
+        delNode.next = null;
+
+        size--;
+        return delNode.e;
+    }
+
+    public E removeFirst() {
+        return remove(0);
+    }
+
+    public E removeLast() {
+        return remove(size - 1);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder res = new StringBuilder();
+
+        Node currentNode = dummyHead.next;
+
+        while (currentNode != null) {
+            res.append(currentNode + "->");
+            currentNode = currentNode.next;
+        }
+        //Another way
+        // for(Node cur=dummyHead.next;cur!=null;cur=cur.next)
+        res.append("NULL");
+        return res.toString();
+    }
 }
 
