@@ -3,50 +3,87 @@ package com.zhm.BST;
 /**
  * Created by zhm on 2018/11/8.
  */
-public class BinarySortTree {
-    public Node node;
+public class BinarySearchTree<E extends Comparable<E>> {
+    private class Node {
+        public Node left;
+        public Node right;
+        public E value;
+
+        public Node(E value) {
+            this.value = value;
+            this.left = null;
+            this.right = null;
+        }
+
+    }
+
+    private Node root;
+    private int size;
+
+    public BinarySearchTree() {
+        root = null;
+        size = 0;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
 
     /**
      * Insert new node
      *
      * @param value
      */
-    public void insert(int value) {
-        Node newNode = new Node(value);
-        if (node == null) {
-            node = newNode;
+    public void insert(E value) {
+        if (root == null) {
+            root = new Node(value);
+            size++;
         } else {
-            insertNode(node, newNode);
+            insertNode(root, value);
         }
     }
 
-    private void insertNode(Node node, Node newNode) {
-        // Left child
-        if (newNode.getValue() < node.getValue()) {
+    /**
+     * Insert node from root
+     *
+     * @param node
+     * @param value
+     */
+    private void insertNode(Node node, E value) {
+        if (node.value.equals(value))
+            return;
+
+            // Left child
+        else if (value.compareTo(node.value) < 0) {
             if (node.left == null) {
-                node.left = newNode;
+                node.left = new Node(value);
+                size++;
             } else {
-                insertNode(node.left, newNode);
+                insertNode(node.left, value);
             }
         }
         // Right child
-        else if (newNode.getValue() > node.getValue()) {
+        else if (value.compareTo(node.value) > 0) {
             if (node.right == null) {
-                node.right = newNode;
+                node.right = new Node(value);
             } else {
-                insertNode(node.right, newNode);
+                insertNode(node.right, value);
             }
         }
     }
 
     public void preOrder() {
         System.out.println("PreOrder:");
-        this.preOrder(node);
+        this.preOrder(root);
     }
 
     private void preOrder(Node node) {
         if (node != null) {
-            System.out.print(node.getValue() + " ");
+            System.out.print(node.value + " ");
             preOrder(node.left);
             preOrder(node.right);
         }
@@ -54,27 +91,27 @@ public class BinarySortTree {
 
     public void inOrder() {
         System.out.println("InOrder:");
-        this.inOrder(node);
+        this.inOrder(root);
     }
 
     private void inOrder(Node node) {
         if (node != null) {
             inOrder(node.left);
-            System.out.print(node.getValue() + " ");
+            System.out.print(node.value + " ");
             inOrder(node.right);
         }
     }
 
     public void postOrder() {
         System.out.println("InOrder:");
-        this.postOrder(node);
+        this.postOrder(root);
     }
 
     private void postOrder(Node node) {
         if (node != null) {
             postOrder(node.left);
             postOrder(node.right);
-            System.out.print(node.getValue() + " ");
+            System.out.print(node.value + " ");
         }
     }
 
@@ -84,20 +121,20 @@ public class BinarySortTree {
      * @param value
      * @return
      */
-    public Node search(int value) {
+    public Node search(E value) {
         System.out.print("Search:" + value);
-        return search(node, value);
+        return search(root, value);
     }
 
-    private Node search(Node node, int value) {
+    private Node search(Node node, E value) {
         if (node != null) {
-            int currentNodeValue = node.getValue();
-            if (currentNodeValue == value) {
+            E currentNodeValue = node.value;
+            if (currentNodeValue.equals(value)) {
                 return node;
             } else {
-                if (value < currentNodeValue) {
+                if (value.compareTo(currentNodeValue) < 0) {
                     return search(node.left, value);
-                } else if (value > currentNodeValue) {
+                } else if (value.compareTo(currentNodeValue) > 0) {
                     return search(node.right, value);
                 }
             }
@@ -110,13 +147,13 @@ public class BinarySortTree {
      *
      * @return
      */
-    public int findMaximumValue() {
-        Node result = findMaximumValue(node);
+    public E findMaximumValue() {
+        Node result = findMaximumValue(root);
 
         if (result == null) {
             return -1;
         } else {
-            return result.getValue();
+            return result.value;
         }
     }
 
@@ -137,13 +174,13 @@ public class BinarySortTree {
      *
      * @return
      */
-    public int findMinimumValue() {
-        Node result = findMinimumValue(node);
+    public E findMinimumValue() {
+        Node result = findMinimumValue(root);
 
         if (result == null) {
             return -1;
         } else {
-            return result.getValue();
+            return result.value;
         }
     }
 

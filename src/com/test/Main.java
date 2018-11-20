@@ -1,9 +1,7 @@
 package com.test;
 
 import com.zhm.Array.Array;
-import com.zhm.BST.BinarySortTree;
-import com.zhm.BST.Node;
-import com.zhm.LinkedList.LinkedList;
+import com.zhm.BST.BinarySearchTree;
 import com.zhm.Queue.ArrayQueue;
 import com.zhm.Queue.LinkedListQueue;
 import com.zhm.Queue.LoopQueue;
@@ -140,7 +138,7 @@ public class Main {
     }
 
     public static void testBST() {
-        BinarySortTree binaryTree = new BinarySortTree();
+        BinarySearchTree binaryTree = new BinarySearchTree();
         insertIntoBST(binaryTree);
 
         binaryTree.preOrder();
@@ -152,8 +150,6 @@ public class Main {
         binaryTree.postOrder();
 
         System.out.println("");
-        Node result = binaryTree.search(8);
-        System.out.println(result == null ? " Not found" : " " + result.getValue() + " found");
 
         System.out.println("Maximum Value:" + binaryTree.findMaximumValue());
 
@@ -162,9 +158,9 @@ public class Main {
 
     }
 
-    private static void insertIntoBST(BinarySortTree binaryTree) {
+    private static void insertIntoBST(BinarySearchTree binaryTree) {
         int[] nodes = new int[]{8, 3, 10, 1, 6, 14, 4, 7, 13};
-        BinarySortTree binarySortTree = new BinarySortTree();
+        BinarySearchTree binarySortTree = new BinarySearchTree();
         for (int node : nodes) {
             binarySortTree.insert(node);
         }
