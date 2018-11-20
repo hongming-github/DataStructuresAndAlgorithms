@@ -54,10 +54,10 @@ public class BinarySearchTree<E extends Comparable<E>> {
      * @param value
      */
     private void insertNode(Node node, E value) {
-        if (node.value.equals(value))
+        if (node.value.equals(value)) {
             return;
-
-            // Left child
+        }
+        // Left child
         else if (value.compareTo(node.value) < 0) {
             if (node.left == null) {
                 node.left = new Node(value);
@@ -74,6 +74,38 @@ public class BinarySearchTree<E extends Comparable<E>> {
                 insertNode(node.right, value);
             }
         }
+    }
+
+    /**
+     * Insert new node
+     *
+     * @param value
+     */
+    public void insertNew(E value) {
+        insertNodeNew(root, value);
+    }
+
+    /**
+     * Insert node from root, return the root of new node
+     *
+     * @param node
+     * @param value
+     */
+    private Node insertNodeNew(Node node, E value) {
+        if (node == null) {
+            size++;
+            return new Node(value);
+        }
+
+        // Left child
+        if (value.compareTo(node.value) < 0) {
+            node.left = insertNodeNew(node.left, value);
+        }
+        // Right child
+        else if (value.compareTo(node.value) > 0) {
+            node.right = insertNodeNew(node.right, value);
+        }
+        return node;
     }
 
     public void preOrder() {
