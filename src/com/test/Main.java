@@ -146,7 +146,9 @@ public class Main {
         System.out.println("");
 //        binaryTree.inOrder();
 
-        binaryTree.preOrderNoneRecursive();
+//        binaryTree.preOrderNoneRecursive();
+
+        binaryTree.levelOrder();
 
 //        System.out.println("");
 //        binaryTree.postOrder();
@@ -167,4 +169,8 @@ public class Main {
             binarySortTree.insertNew(node);
         }
     }
+//        8
+//      3   10
+//   1    6      14
+//      4   7   13
 }

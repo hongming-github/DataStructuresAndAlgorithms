@@ -1,5 +1,7 @@
 package com.zhm.BST;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -167,6 +169,19 @@ public class BinarySearchTree<E extends Comparable<E>> {
             postOrder(node.left);
             postOrder(node.right);
             System.out.print(node.value + " ");
+        }
+    }
+
+    public void levelOrder() {
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            Node currentNode = queue.remove();
+            System.out.print(currentNode.value + " ");
+            if (currentNode.left != null)
+                queue.add(currentNode.left);
+            if (currentNode.right != null)
+                queue.add(currentNode.right);
         }
     }
 
