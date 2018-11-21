@@ -1,5 +1,7 @@
 package com.zhm.BST;
 
+import java.util.Stack;
+
 /**
  * Created by zhm on 2018/11/8.
  */
@@ -82,7 +84,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
      * @param value
      */
     public void insertNew(E value) {
-        insertNodeNew(root, value);
+        root = insertNodeNew(root, value);
     }
 
     /**
@@ -120,6 +122,27 @@ public class BinarySearchTree<E extends Comparable<E>> {
             preOrder(node.right);
         }
     }
+
+    /**
+     * None recursive pre order
+     */
+    public void preOrderNoneRecursive() {
+        System.out.println("PreOrderNoneRecursive:");
+        Stack<Node> stack = new Stack<>();
+        stack.push(root);
+
+        while (!stack.isEmpty()) {
+            Node currentNode = stack.pop();
+            System.out.print(currentNode.value + " ");
+
+            if (currentNode.right != null)
+                stack.push(currentNode.right);
+            if (currentNode.left != null)
+                stack.push(currentNode.left);
+        }
+
+    }
+
 
     public void inOrder() {
         System.out.println("InOrder:");
@@ -183,7 +206,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
         Node result = findMaximumValue(root);
 
         if (result == null) {
-            return -1;
+            return result.value;
         } else {
             return result.value;
         }
@@ -210,7 +233,7 @@ public class BinarySearchTree<E extends Comparable<E>> {
         Node result = findMinimumValue(root);
 
         if (result == null) {
-            return -1;
+            return result.value;
         } else {
             return result.value;
         }

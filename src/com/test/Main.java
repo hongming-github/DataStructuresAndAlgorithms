@@ -15,7 +15,7 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args) {
-        testQueuePerformance();
+        testBST();
 //        LinkedList<Integer> linkedList = new LinkedList<>();
 //        for (int i = 0; i < 5; i++) {
 //            linkedList.addFirst(i);
@@ -144,25 +144,27 @@ public class Main {
         binaryTree.preOrder();
 
         System.out.println("");
-        binaryTree.inOrder();
+//        binaryTree.inOrder();
 
-        System.out.println("");
-        binaryTree.postOrder();
+        binaryTree.preOrderNoneRecursive();
 
-        System.out.println("");
+//        System.out.println("");
+//        binaryTree.postOrder();
+//
+//        System.out.println("");
 
-        System.out.println("Maximum Value:" + binaryTree.findMaximumValue());
-
-        System.out.println("Minimum Value:" + binaryTree.findMinimumValue());
+//        System.out.println("Maximum Value:" + binaryTree.findMaximumValue());
+//
+//        System.out.println("Minimum Value:" + binaryTree.findMinimumValue());
 
 
     }
 
-    private static void insertIntoBST(BinarySearchTree binaryTree) {
+    private static void insertIntoBST(BinarySearchTree binarySortTree) {
         int[] nodes = new int[]{8, 3, 10, 1, 6, 14, 4, 7, 13};
-        BinarySearchTree binarySortTree = new BinarySearchTree();
+
         for (int node : nodes) {
-            binarySortTree.insert(node);
+            binarySortTree.insertNew(node);
         }
     }
 }
