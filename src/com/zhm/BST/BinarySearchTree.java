@@ -217,17 +217,17 @@ public class BinarySearchTree<E extends Comparable<E>> {
      *
      * @return
      */
-    public E findMaximumValue() {
-        Node result = findMaximumValue(root);
+    public E findMaximumValueNR() {
+        Node result = findMaximumValueNR(root);
 
         if (result == null) {
-            return result.value;
+            return null;
         } else {
             return result.value;
         }
     }
 
-    private Node findMaximumValue(Node node) {
+    private Node findMaximumValueNR(Node node) {
         if (node == null) {
             return null;
         } else {
@@ -240,21 +240,24 @@ public class BinarySearchTree<E extends Comparable<E>> {
     }
 
     /**
-     * Get the minimum value in BTS
+     * Get the minimum value in BTS none recursive
      *
      * @return
      */
-    public E findMinimumValue() {
-        Node result = findMinimumValue(root);
+    public E findMinimumNR() {
+        if (size == 0) {
+            throw new IllegalArgumentException("BST is empty");
+        }
+        Node result = findMinimumNR(root);
 
         if (result == null) {
-            return result.value;
+            return null;
         } else {
             return result.value;
         }
     }
 
-    private Node findMinimumValue(Node node) {
+    private Node findMinimumNR(Node node) {
         if (node == null) {
             return null;
         } else {
@@ -263,6 +266,125 @@ public class BinarySearchTree<E extends Comparable<E>> {
             }
             return node;
         }
-
     }
+
+    public E findMinimum() {
+        if (size == 0) {
+            throw new IllegalArgumentException("BST is empty");
+        }
+
+        return findMinimum(root).value;
+    }
+
+    private Node findMinimum(Node node) {
+        if (node.left == null)
+            return node;
+
+        return findMinimum(node.left);
+    }
+
+    public E findMaximum() {
+        if (size == 0) {
+            throw new IllegalArgumentException("BST is empty");
+        }
+
+        return findMaximum(root).value;
+    }
+
+    private Node findMaximum(Node node) {
+        if (node.right == null)
+            return node;
+
+        return findMaximum(node.right);
+    }
+
+    public E removeMin() {
+        E result = findMinimum();
+        root = removeMin(root);
+        return result;
+    }
+
+    /**
+     * Remove the minimum node, and return the new root of the deleted node
+     *
+     * @param node
+     * @return
+     */
+    private Node removeMin(Node node) {
+        if (node.left == null) {
+            Node rightNode = node.right;
+            node.right = null;
+            size--;
+            return rightNode;
+        }
+        node.left = removeMin(node.left);
+        return node;
+    }
+
+    public E removeMax() {
+        E result = findMaximum();
+        root = removeMax(root);
+        return result;
+    }
+
+    /**
+     * Remove the maximum node, and return the new root of the deleted node
+     *
+     * @param node
+     * @return
+     */
+    private Node removeMax(Node node) {
+        if (node.right == null) {
+            Node leftNode = node.left;
+            node.left = null;
+            size--;
+            return leftNode;
+        }
+        node.right = removeMax(node.right);
+        return node;
+    }
+
+    public void remove(E value) {
+        root = remove(root, value);
+    }
+
+    private Node remove(Node node, E value) {
+        if (node == null) {
+            return null;
+        }
+
+        if (value.compareTo(node.value) < 0) {
+            node.left = remove(node.left, value);
+            return node;
+        } else if (value.compareTo(node.value) > 0) {
+            node.right = remove(node.right, value);
+            return node;
+        } else// Equal
+        {
+            // Left child is null
+            if (node.left == null) {
+                Node rightNode = node.right;
+                node.right = null;
+                size--;
+                return rightNode;
+            }
+            // Right child is null
+            if (node.right == null) {
+                Node leftNode = node.left;
+                node.left = null;
+                size--;
+                return leftNode;
+            }
+            // If both left and right child are not empty,
+            // find the smallest node that bigger than deleted node
+            // which means finding the smallest node in the right children
+            Node successor = findMinimum(node.right);
+            successor.right = removeMin(node.right);
+            successor.left = node.left;
+
+            node.left = node.right = null;
+            return successor;
+        }
+    }
+
 }
