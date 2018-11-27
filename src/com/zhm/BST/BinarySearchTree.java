@@ -186,30 +186,30 @@ public class BinarySearchTree<E extends Comparable<E>> {
     }
 
     /**
-     * Search the value in BST
+     * Check if the BST contains given value
      *
      * @param value
      * @return
      */
-    public Node search(E value) {
+    public boolean contains(E value) {
         System.out.print("Search:" + value);
-        return search(root, value);
+        return contains(root, value);
     }
 
-    private Node search(Node node, E value) {
+    private boolean contains(Node node, E value) {
         if (node != null) {
             E currentNodeValue = node.value;
-            if (currentNodeValue.equals(value)) {
-                return node;
+            if (value.equals(currentNodeValue)) {
+                return true;
             } else {
                 if (value.compareTo(currentNodeValue) < 0) {
-                    return search(node.left, value);
+                    return contains(node.left, value);
                 } else if (value.compareTo(currentNodeValue) > 0) {
-                    return search(node.right, value);
+                    return contains(node.right, value);
                 }
             }
         }
-        return null;
+        return false;
     }
 
     /**
