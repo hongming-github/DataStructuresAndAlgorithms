@@ -10,12 +10,13 @@ import com.zhm.Stack.ArrayStack;
 import com.zhm.Stack.LinkedListStack;
 import com.zhm.Stack.Stack;
 
+import java.util.HashMap;
 import java.util.Random;
 
 public class Main {
 
     public static void main(String[] args) {
-        testBST();
+//        testBST();
 //        LinkedList<Integer> linkedList = new LinkedList<>();
 //        for (int i = 0; i < 5; i++) {
 //            linkedList.addFirst(i);
