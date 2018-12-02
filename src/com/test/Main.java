@@ -2,6 +2,7 @@ package com.test;
 
 import com.zhm.Array.Array;
 import com.zhm.BST.BinarySearchTree;
+import com.zhm.Heap.MaxHeap;
 import com.zhm.Queue.ArrayQueue;
 import com.zhm.Queue.LinkedListQueue;
 import com.zhm.Queue.LoopQueue;
@@ -16,7 +17,7 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args) {
-//        testBST();
+        testMaxHeap();
 //        LinkedList<Integer> linkedList = new LinkedList<>();
 //        for (int i = 0; i < 5; i++) {
 //            linkedList.addFirst(i);
@@ -34,6 +35,8 @@ public class Main {
 //
 //        linkedList.removeLast();
 //        System.out.println(linkedList);
+
+
     }
 
     public static void testLoopQueue() {
@@ -174,4 +177,27 @@ public class Main {
 //      3   10
 //   1    6      14
 //      4   7   13
+
+    public static void testMaxHeap() {
+        int n = 10000;
+
+        MaxHeap<Integer> maxHeap = new MaxHeap<>();
+
+        Random random = new Random();
+
+        for (int i = 0; i < n; i++) {
+            maxHeap.add(random.nextInt(Integer.MAX_VALUE));
+        }
+
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = maxHeap.extractMax();
+        }
+
+        for (int i = 1; i < n; i++) {
+            if (arr[i - 1] < arr[i])
+                throw new IllegalArgumentException("fail");
+        }
+        System.out.println("Test completed");
+    }
 }

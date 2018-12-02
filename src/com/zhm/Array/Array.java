@@ -236,6 +236,15 @@ public class Array<E> {
         }
     }
 
+    public void swap(int i, int j) {
+        if (i < 0 || i >= size || j < 0 || j >= size)
+            throw new IllegalArgumentException("Index is illegal.");
+
+        E temp = data[i];
+        data[i] = data[j];
+        data[j] = temp;
+    }
+
     /**
      * Override toString method
      *
