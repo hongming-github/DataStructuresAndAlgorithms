@@ -7,6 +7,7 @@ import com.zhm.Queue.ArrayQueue;
 import com.zhm.Queue.LinkedListQueue;
 import com.zhm.Queue.LoopQueue;
 import com.zhm.Queue.Queue;
+import com.zhm.SegmentTree.SegmentTree;
 import com.zhm.Stack.ArrayStack;
 import com.zhm.Stack.LinkedListStack;
 import com.zhm.Stack.Stack;
@@ -17,7 +18,12 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args) {
-        testMaxHeap();
+        Integer[] nums = {-2, 0, 3, -5, 2, -1};
+
+        SegmentTree<Integer> segTree = new SegmentTree<>(nums, (a, b) -> a + b);
+
+        System.out.println(segTree);
+//        testMaxHeap();
 //        LinkedList<Integer> linkedList = new LinkedList<>();
 //        for (int i = 0; i < 5; i++) {
 //            linkedList.addFirst(i);
