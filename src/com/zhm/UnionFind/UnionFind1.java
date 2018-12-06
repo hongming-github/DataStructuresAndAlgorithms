@@ -3,6 +3,10 @@ package com.zhm.UnionFind;
 /**
  * Created by zhm on 2018/12/6.
  */
+
+/**
+ * Quick find
+ */
 public class UnionFind1 implements UF {
     private int[] id;
 
