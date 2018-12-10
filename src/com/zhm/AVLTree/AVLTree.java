@@ -236,30 +236,13 @@ public class AVLTree<K extends Comparable<K>, V> {
         }
     }
 
-    /**
-     * Remove the minimum node, and return the new root of the deleted node
-     *
-     * @param node
-     * @return
-     */
-    private Node removeMin(Node node) {
-        if (node.left == null) {
-            Node rightNode = node.right;
-            node.right = null;
-            size--;
-            return rightNode;
-        }
-        node.left = removeMin(node.left);
-        return node;
-    }
-
     private Node findMinimum(Node node) {
         if (node.left == null)
             return node;
 
         return findMinimum(node.left);
     }
-    
+
     public V remove(K key) {
         Node node = getNode(root, key);
         if (node != null) {
@@ -274,12 +257,13 @@ public class AVLTree<K extends Comparable<K>, V> {
             return null;
         }
 
+        Node retNode;
         if (key.compareTo(node.key) < 0) {
             node.left = remove(node.left, key);
-            return node;
+            retNode = node;
         } else if (key.compareTo(node.key) > 0) {
             node.right = remove(node.right, key);
-            return node;
+            retNode = node;
         } else// Equal
         {
             // Left child is null
@@ -287,25 +271,58 @@ public class AVLTree<K extends Comparable<K>, V> {
                 Node rightNode = node.right;
                 node.right = null;
                 size--;
-                return rightNode;
+                retNode = rightNode;
             }
             // Right child is null
-            if (node.right == null) {
+            else if (node.right == null) {
                 Node leftNode = node.left;
                 node.left = null;
                 size--;
-                return leftNode;
-            }
-            // If both left and right child are not empty,
-            // find the smallest node that bigger than deleted node
-            // which means finding the smallest node in the right children
-            Node successor = findMinimum(node.right);
-            successor.right = removeMin(node.right);
-            successor.left = node.left;
+                retNode = leftNode;
+            } else {
+                // If both left and right child are not empty,
+                // find the smallest node that bigger than deleted node
+                // which means finding the smallest node in the right children
+                Node successor = findMinimum(node.right);
+                successor.right = remove(node.right, successor.key);
+                successor.left = node.left;
 
-            node.left = node.right = null;
-            return successor;
+                node.left = node.right = null;
+                retNode = successor;
+            }
         }
+
+        if (retNode == null) {
+            return null;
+        }
+
+        retNode.height = 1 + Math.max(getHeight(retNode.left), getHeight(retNode.right));
+
+        int balanceFactor = getBalanceFactor(retNode);
+
+        //Maintain balance
+        //LL
+        if (balanceFactor > 1 && getBalanceFactor(retNode.left) >= 0) {
+            return rightRotate(retNode);
+        }
+
+        //RR
+        if (balanceFactor < -1 && getBalanceFactor(retNode.right) <= 0) {
+            return leftRotate(retNode);
+        }
+
+        //LR
+        if (balanceFactor > 1 && getBalanceFactor(retNode.left) < 0) {
+            retNode.left = leftRotate(retNode.left);
+            return rightRotate(retNode);
+        }
+
+        //RL
+        if (balanceFactor < -1 && getBalanceFactor(retNode.right) > 0) {
+            retNode.right = rightRotate(retNode.right);
+            return leftRotate(retNode);
+        }
+        return retNode;
     }
 
 
