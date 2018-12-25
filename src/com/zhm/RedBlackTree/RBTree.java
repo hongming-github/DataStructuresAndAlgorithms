@@ -48,6 +48,17 @@ public class RBTree<E extends Comparable<E>> {
         return node.color;
     }
 
+    private Node leftRotate(Node node) {
+        Node x = node.right;
+
+        node.right = x.left;
+        x.left = node;
+        x.color = node.color;
+        node.color = RED;
+
+        return x;
+    }
+
     /**
      * Insert new node
      *
@@ -98,6 +109,7 @@ public class RBTree<E extends Comparable<E>> {
      */
     public void insertNew(E value) {
         root = insertNodeNew(root, value);
+        root.color = BLACK;
     }
 
     /**
