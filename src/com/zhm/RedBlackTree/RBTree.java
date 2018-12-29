@@ -59,6 +59,30 @@ public class RBTree<E extends Comparable<E>> {
         return x;
     }
 
+    /*Return root node
+            node                              x
+            / \                             /   \
+           x   T2                          y   node
+          / \         right rotate              / \
+         y  T1      ------------------>        T1 T2
+     */
+    private Node rightRotate(Node node) {
+        Node x = node.left;
+
+        node.left = x.right;
+        x.right = node;
+        x.color = node.color;
+        node.color = RED;
+
+        return x;
+    }
+
+    private void flipColor(Node node) {
+        node.color = RED;
+        node.left.color = BLACK;
+        node.right.color = BLACK;
+    }
+
     /**
      * Insert new node
      *
@@ -132,6 +156,16 @@ public class RBTree<E extends Comparable<E>> {
         else if (value.compareTo(node.value) > 0) {
             node.right = insertNodeNew(node.right, value);
         }
+
+        if (isRed(node.right) && !isRed(node.left))
+            node = leftRotate(node);
+
+        if (isRed(node.left) && isRed(node.left.left))
+            node = rightRotate(node);
+
+        if (isRed(node.left) && isRed(node.right))
+            flipColor(node);
+
         return node;
     }
 
